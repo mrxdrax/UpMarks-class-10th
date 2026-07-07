@@ -44,38 +44,48 @@ void OnMouseDown()
 }
 
     IEnumerator FlipRoutine()
+{
+    flipping = true;
+
+    Vector3 startPos = transform.position;
+
+    Quaternion startRot = transform.rotation;
+
+    Quaternion endRot =
+        startRot * Quaternion.Euler(180f, 0f, 0f);
+
+    float timer = 0;
+
+    while (timer < flipTime)
     {
-        flipping = true;
+        timer += Time.deltaTime;
 
-        Quaternion startRot = transform.rotation;
+        float t = timer / flipTime;
 
-        Quaternion endRot =
-            startRot * Quaternion.Euler(180f, 0f, 0f);
+        // Rotation
+        transform.rotation =
+            Quaternion.Slerp(startRot, endRot, t);
 
-        float timer = 0;
+        // Toss
+        Vector3 pos = startPos;
 
-        while (timer < flipTime)
-        {
-            timer += Time.deltaTime;
+        pos.y += Mathf.Sin(t * Mathf.PI) * 0.08f;
 
-            transform.rotation =
-                Quaternion.Slerp(
-                    startRot,
-                    endRot,
-                    timer / flipTime
-                );
+        transform.position = pos;
 
-            yield return null;
-        }
-
-        transform.rotation = endRot;
-
-        flipped = true;
-        flipping = false;
-        canFlip = false;
-
-        Debug.Log("Meat Flipped");
-
-        cookingManager.StartSecondCooking();
+        yield return null;
     }
+
+    transform.position = startPos;
+
+    transform.rotation = endRot;
+
+    flipped = true;
+
+    flipping = false;
+
+    canFlip = false;
+
+    cookingManager.StartSecondCooking();
+}
 }

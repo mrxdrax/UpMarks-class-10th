@@ -9,8 +9,8 @@ public GameObject cookedMeat;
 
 [Header("Inspection")]
 public Ex2Inspection inspection;
-    //public GameObject gasFlame;
-    //public GameObject smokeFX;
+    public GameObject gasFlame;
+    public GameObject smokeFX;
     public Ex2MeatFlip meatFlip;
 
     public float cookingTime = 15f;
@@ -46,14 +46,18 @@ IEnumerator CookingRoutine()
 {
     gasStarted = true;
 
-    //gasFlame.SetActive(true);
-
-    //smokeFX.SetActive(true);
+    // Fire ON
+    gasFlame.SetActive(true);
 
     Debug.Log("Gas ON");
 
-    // Pehla side
-    yield return new WaitForSeconds(cookingTime / 2);
+    // 2 sec baad smoke
+    yield return new WaitForSeconds(2f);
+
+    smokeFX.SetActive(true);
+
+    // Pehli side cook
+    yield return new WaitForSeconds((cookingTime / 2) - 2f);
 
     Debug.Log("Flip Available");
 
@@ -71,13 +75,13 @@ IEnumerator SecondCookingRoutine()
     Debug.Log("Second Side");
 
     yield return new WaitForSeconds(cookingTime / 2);
-     //gasFlame.SetActive(false);
 
-    //smokeFX.SetActive(false);
+    gasFlame.SetActive(false);
+    smokeFX.SetActive(false);
+
     cookingFinished = true;
 
     rawMeat.SetActive(false);
-
     cookedMeat.SetActive(true);
 
     inspection.UnlockInspection();
