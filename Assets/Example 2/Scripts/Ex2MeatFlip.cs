@@ -6,7 +6,7 @@ public class Ex2MeatFlip : MonoBehaviour
     [Header("Cooking Manager")]
     public Ex2CookingManager cookingManager;
 
-    [Header("Flip Settings")]
+    [Header("Flip Settings")]  // used to flip the meat when the player clicks on it
     public float flipTime = 0.6f;
 
     bool canFlip = false;

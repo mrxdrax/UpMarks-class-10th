@@ -28,7 +28,6 @@ public class Ex2MeatMove : MonoBehaviour
     {
         if (!moving)
             return;
-
         transform.position = Vector3.Lerp(
             transform.position,
             panPoint.position,
