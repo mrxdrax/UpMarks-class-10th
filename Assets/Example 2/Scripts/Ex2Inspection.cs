@@ -11,6 +11,8 @@ public class Ex2Inspection : MonoBehaviour
 
     bool unlocked = false;
     bool inspecting = false;
+    [Header("UI")]
+public GameObject nextButton;
 
     public void UnlockInspection()
     {
@@ -26,6 +28,7 @@ public class Ex2Inspection : MonoBehaviour
             return;
 
         StartCoroutine(StartInspection());
+        nextButton.SetActive(true);
     }
 
     IEnumerator StartInspection()

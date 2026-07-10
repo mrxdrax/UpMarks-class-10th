@@ -15,6 +15,9 @@ public class RustInspection : MonoBehaviour
 
     Vector3 startPos;
     Vector3 startScale;
+     [Header("UI")]
+public GameObject nextButton;
+
 
 
     void Start()
@@ -42,6 +45,7 @@ public class RustInspection : MonoBehaviour
     {
         print("Inspection Started");
         StartCoroutine(StartInspection());
+        nextButton.SetActive(true);
     }
 }
 
