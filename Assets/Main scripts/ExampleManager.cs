@@ -59,12 +59,12 @@ public class ExampleManager : MonoBehaviour
         SceneManager.LoadScene("MainMenu");
     }
 }
-    public void PreviousExample()
+public void PreviousExample()
+{
+    if (currentExample > 0)
     {
-        if (currentExample > 0)
-        {
-            ShowExample(currentExample - 1);
-        }
+        ShowExample(currentExample - 1);
     }
-    
+}
+
 }
