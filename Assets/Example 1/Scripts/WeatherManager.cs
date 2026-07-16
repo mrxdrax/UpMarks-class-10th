@@ -15,60 +15,66 @@ public class WeatherManager : MonoBehaviour
 
     [Header("Transition Time")]
     public float transitionTime = 1f;
-[Header("Day Night Cycle")]
-public bool enableDayNight = true;
 
-public float sunRotationSpeed = 8f;
+    [Header("Day Night Cycle")]
+    public bool enableDayNight = true;
+    public float sunRotationSpeed = 8f;
 
-bool dayNightRunning = false;
-    // ---------------- WEATHER ----------------
+    private bool dayNightRunning = false;
 
-public void SetSunny()
-{
-    rainFX.SetActive(false);
-    leafFX.SetActive(false);
-}
+    // ============ WEATHER ============
 
-public void SetRainy()
-{
-    rainFX.SetActive(true);
-    leafFX.SetActive(false);
-}
-
-public void SetLeafy()
-{
-    rainFX.SetActive(false);
-    leafFX.SetActive(true);
-}
-    
-void Update()
-{
-    if (!dayNightRunning)
-        return;
-
-    directionalLight.transform.Rotate(
-        sunRotationSpeed * Time.deltaTime,
-        0f,
-        0f,
-        Space.Self
-    );
-}
-public void StartDayNight()
-{
-    dayNightRunning = true;
-}
-
-public void StopDayNight()
-{
-    dayNightRunning = false;
-}
-
-    // ---------------- ROTATION ----------------
-
-    IEnumerator RotateLight(Vector3 targetRotation)
+    public void SetSunny()
     {
-        Quaternion startRotation = directionalLight.transform.rotation;
+        if (rainFX != null) rainFX.SetActive(false);
+        if (leafFX != null) leafFX.SetActive(false);
+    }
 
+    public void SetRainy()
+    {
+        if (rainFX != null) rainFX.SetActive(true);
+        if (leafFX != null) leafFX.SetActive(false);
+    }
+
+    public void SetLeafy()
+    {
+        if (rainFX != null) rainFX.SetActive(false);
+        if (leafFX != null) leafFX.SetActive(true);
+    }
+
+    // ============ DAY NIGHT CYCLE ============
+
+    private void Update()
+    {
+        if (!dayNightRunning || directionalLight == null)
+            return;
+
+        directionalLight.transform.Rotate(
+            sunRotationSpeed * Time.deltaTime,
+            0f,
+            0f,
+            Space.Self
+        );
+    }
+
+    public void StartDayNight()
+    {
+        dayNightRunning = true;
+    }
+
+    public void StopDayNight()
+    {
+        dayNightRunning = false;
+    }
+
+    // ============ ROTATION ============
+
+    public IEnumerator RotateLight(Vector3 targetRotation)
+    {
+        if (directionalLight == null)
+            yield break;
+
+        Quaternion startRotation = directionalLight.transform.rotation;
         Quaternion endRotation = Quaternion.Euler(targetRotation);
 
         float timer = 0f;

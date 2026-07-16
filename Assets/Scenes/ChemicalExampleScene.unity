@@ -323,6 +323,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   outline: {fileID: 0}
+  outlineWidth: 3
 --- !u!23 &213741570
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -5861,6 +5862,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   outline: {fileID: 0}
+  outlineWidth: 3
 --- !u!64 &545203302
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -6364,37 +6366,6 @@ MonoBehaviour:
   cookingTime: 15
   meatPlaced: 0
   cookingFinished: 0
---- !u!1 &819599348
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 819599349}
-  m_Layer: 0
-  m_Name: Point C
-  m_TagString: Untagged
-  m_Icon: {fileID: -5442936267250999957, guid: 0000000000000000d000000000000000, type: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &819599349
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 819599348}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 3.197, y: 0.064, z: -0.541}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1513088556}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &844924551
 GameObject:
   m_ObjectHideFlags: 0
@@ -6534,6 +6505,59 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 963194228}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &896692904
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 896692906}
+  - component: {fileID: 896692905}
+  m_Layer: 0
+  m_Name: DropArea
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!65 &896692905
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 896692904}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 2.0882044, y: 2.2356772, z: 1.1884304}
+  m_Center: {x: 0.036272395, y: -0.13562348, z: -0.094215654}
+--- !u!4 &896692906
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 896692904}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -1.86, y: -0, z: 1.07}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4418473098440519315}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &896881154
 GameObject:
@@ -6875,37 +6899,6 @@ Transform:
   - {fileID: 307782543}
   m_Father: {fileID: 514827219}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1054134589
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1054134590}
-  m_Layer: 0
-  m_Name: Point B
-  m_TagString: Untagged
-  m_Icon: {fileID: 3443629218296621865, guid: 0000000000000000d000000000000000, type: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1054134590
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1054134589}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 3.2, y: 0.297, z: -0.546}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1513088556}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1076087537
 GameObject:
   m_ObjectHideFlags: 0
@@ -7009,6 +7002,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   outline: {fileID: 0}
+  outlineWidth: 3
 --- !u!64 &1143775747
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -7733,8 +7727,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1153818866}
-  - {fileID: 1054134590}
-  - {fileID: 819599349}
   - {fileID: 1629093880}
   m_Father: {fileID: 1238622398}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -7888,7 +7880,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1629093880}
   m_Layer: 0
-  m_Name: Point D
+  m_Name: Point B
   m_TagString: Untagged
   m_Icon: {fileID: -5442936267250999957, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -8082,10 +8074,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dayText: {fileID: 383188396}
+  dayDuration: 0.1
+  dayDurationMin: 0.05
+  dayDurationMax: 10
   currentDay: 1
+  totalDays: 30
+  rustStartDay: 20
   weatherManager: {fileID: 1397414330}
   normalNail: {fileID: 2959586074614800558}
   rustNail: {fileID: 3692832158391796837}
+  nailMove: {fileID: 0}
   rustInspection: {fileID: 6201974080301496596}
 --- !u!4 &1783628467
 Transform:
@@ -33347,6 +33345,7 @@ GameObject:
   - component: {fileID: 3591307416436806907}
   - component: {fileID: 7591266206150453584}
   - component: {fileID: 7591266206150453585}
+  - component: {fileID: 7591266206150453586}
   m_Layer: 0
   m_Name: Nail
   m_TagString: Interactable
@@ -33747,6 +33746,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 213741568}
+  - {fileID: 896692906}
   m_Father: {fileID: 1506557784}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &4427940044051858112
@@ -38870,10 +38870,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   inspectionPoint: {fileID: 883869570}
   environment: {fileID: 1506557783}
+  mainCamera: {fileID: 0}
+  cameraInspectionOffset: {x: 0, y: 0.5, z: -0.8}
+  cameraSpeed: 3
+  cameraReturnSpeed: 2.5
+  cameraLookRotation: {x: 0, y: 0, z: 0, w: 1}
+  nailMoveSpeed: 2
+  nailScaleMultiplier: 3
   autoRotateSpeed: 20
   dragRotateSpeed: 0.3
-  moveSpeed: 2
+  rotationClamp: {x: -60, y: 60}
+  backgroundCanvasGroup: {fileID: 0}
+  blurFadeSpeed: 3
   nextButton: {fileID: 339201101}
+  exitButton: {fileID: 0}
 --- !u!64 &6201974080301496597
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -39240,15 +39250,88 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae0e58593b5d043439482318d54b9035, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cameraZoom: {fileID: 963194229}
+  dragSpeed: 5
+  dragSmoothness: 0.1
+  hoverScaleAmount: 1.15
+  returnSpeed: 4
+  glowIntensity: 1.5
+  outlineWidth: 3
+  glowMaterial: {fileID: 0}
+  outlineComponent: {fileID: 0}
+  dropAreaCollider: {fileID: 896692905}
+  dropAreaHighlight: {fileID: 0}
+  dropAreaRenderer: {fileID: 0}
   pointA: {fileID: 1153818866}
-  pointB: {fileID: 1054134590}
-  pointC: {fileID: 819599349}
-  pointD: {fileID: 1629093880}
-  dayManager: {fileID: 1783628465}
-  moveSpeed: 3
-  rotateSpeed: 3
+  pointB: {fileID: 1629093880}
+  snapSpeed: 3
+  snapCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  liftHeight: 0.3
+  rotationSpeed: 5
+  insertSpeed: 2
+  insertDepth: 0.5
+  insertCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  shakeAmount: 0.02
+  shakeDuration: 0.3
+  dustParticles: {fileID: 0}
+  impactSound: {fileID: 0}
+  woodSound: {fileID: 0}
+  soundVolume: 0.7
+  normalNail: {fileID: 2959586074614800558}
+  rustNail: {fileID: 3692832158391796837}
+  rustMaterial: {fileID: 0}
+  rustBlendSpeed: 0.5
+  dayDuration: 0.5
+  weatherDelay: 0
+  dayManager: {fileID: 1783628466}
   weatherManager: {fileID: 1397414330}
+  cameraZoom: {fileID: 963194229}
+  rustInspection: {fileID: 6201974080301496596}
 --- !u!65 &7591266206150453585
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -39270,6 +39353,20 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.004251768, y: 0.0042517674, z: 0.025985109}
   m_Center: {x: 0, y: -0.0000000016298145, z: 0}
+--- !u!114 &7591266206150453586
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2959586074614800558}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b345fcc6de9b4845a1e0664a08fa458, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outline: {fileID: 0}
+  outlineWidth: 3
 --- !u!33 &7681449610423038234
 MeshFilter:
   m_ObjectHideFlags: 0

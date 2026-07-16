@@ -5,9 +5,9 @@ public class CameraZoom : MonoBehaviour
     public Transform zoomPoint;
     public float speed = 2f;
 
-    bool move = false;
+    private bool move = false;
 
-    void Update()
+    private void Update()
     {
         if (!move)
             return;
@@ -24,8 +24,7 @@ public class CameraZoom : MonoBehaviour
             Time.deltaTime * speed
         );
 
-        if(Vector3.Distance(transform.position,
-            zoomPoint.position) < 0.01f)
+        if (Vector3.Distance(transform.position, zoomPoint.position) < 0.01f)
         {
             transform.position = zoomPoint.position;
             transform.rotation = zoomPoint.rotation;
