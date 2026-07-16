@@ -125,6 +125,7 @@ public class NailMove : MonoBehaviour
 
     private void OnMouseEnter()
     {
+        cameraZoom.Zoom();
         if (hasSnapped)
             return;
 
@@ -364,13 +365,21 @@ public class NailMove : MonoBehaviour
 
         Vector3 startPos = transform.position;
         Vector3 targetPos = targetPoint.position;
-        float elapsed = 0f;
 
+    Quaternion startRot = transform.rotation;
+        Quaternion targetRot =
+Quaternion.Euler(
+-90f,
+transform.eulerAngles.y,
+transform.eulerAngles.z);
+
+float elapsed = 0f;
         while (elapsed < duration)
         {
             elapsed += Time.deltaTime;
             float t = snapCurve.Evaluate(elapsed / duration);
             transform.position = Vector3.Lerp(startPos, targetPos, t);
+            transform.rotation = Quaternion.Slerp(startRot, targetRot, t);
             yield return null;
         }
 
@@ -378,21 +387,9 @@ public class NailMove : MonoBehaviour
     }
 
     private IEnumerator RotateToInsertion(float duration)
-    {
-        Quaternion startRot = transform.rotation;
-        Quaternion targetRot = Quaternion.Euler(-90f, 0f, 0f);
-        float elapsed = 0f;
-
-        while (elapsed < duration)
-        {
-            elapsed += Time.deltaTime;
-            float t = elapsed / duration;
-            transform.rotation = Quaternion.Lerp(startRot, targetRot, EaseInOutCubic(t));
-            yield return null;
-        }
-
-        transform.rotation = targetRot;
-    }
+{
+    yield break;
+}
 
     private IEnumerator InsertNail()
     {
@@ -415,7 +412,7 @@ public class NailMove : MonoBehaviour
             transform.position = Vector3.Lerp(startPos, targetPos, t);
 
             // Continuous rotation (invisible drill effect)
-            transform.Rotate(Vector3.up, rotationSpeed * 360f * Time.deltaTime, Space.Self);
+            transform.Rotate(Vector3.back, rotationSpeed * 360f * Time.deltaTime, Space.Self);
 
             yield return null;
         }

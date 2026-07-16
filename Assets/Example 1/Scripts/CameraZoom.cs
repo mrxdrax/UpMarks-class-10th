@@ -6,6 +6,7 @@ public class CameraZoom : MonoBehaviour
     public float speed = 2f;
 
     private bool move = false;
+    private bool hasZoomed = false;
 
     private void Update()
     {
@@ -34,7 +35,11 @@ public class CameraZoom : MonoBehaviour
     }
 
     public void Zoom()
-    {
-        move = true;
-    }
+{
+    if (hasZoomed)
+        return;
+
+    hasZoomed = true;
+    move = true;
+}
 }

@@ -108,8 +108,29 @@ public class ScreenController : MonoBehaviour
 
         // CHANGE PANEL (happens behind closed transition)
         currentScreenIndex = newIndex;
-        uiManager.ShowPanel(screenPanels[currentScreenIndex], screenPanels);
 
+
+
+
+
+
+
+
+
+        //uiManager.ShowPanel(screenPanels[currentScreenIndex], screenPanels);
+
+
+
+
+
+
+
+
+
+
+
+
+        
         // HOLD (1.2 seconds - new panel visible behind closed transition)
         if (transitionPanel != null)
         {
@@ -132,8 +153,21 @@ public class ScreenController : MonoBehaviour
             return;
 
         currentScreenIndex = index;
-        uiManager.ShowPanel(screenPanels[index], screenPanels);
+
+
+
+
+
+
+
+        //uiManager.ShowPanel(screenPanels[index], screenPanels);
         
+
+
+
+
+
+
         Debug.Log($"ScreenController: Showing screen at index {index}");
     }
 

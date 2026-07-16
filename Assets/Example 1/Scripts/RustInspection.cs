@@ -16,7 +16,7 @@ public class RustInspection : MonoBehaviour
 
     [Header("============ NAIL MOVEMENT ============")]
     [SerializeField] private float nailMoveSpeed = 2f;
-    [SerializeField] private float nailScaleMultiplier = 3f;
+    [SerializeField] private float nailScaleMultiplier = 1.5f;
 
     [Header("============ ROTATION CONTROLS ============")]
     [SerializeField] private float autoRotateSpeed = 20f;
@@ -165,7 +165,7 @@ public class RustInspection : MonoBehaviour
         // Move camera to inspection view
         if (mainCamera != null)
         {
-            yield return StartCoroutine(MoveCameraToInspection());
+            //yield return StartCoroutine(MoveCameraToInspection());
         }
 
         Debug.Log("Inspection mode active");
@@ -279,24 +279,6 @@ public class RustInspection : MonoBehaviour
 
         transform.position = startPos;
         transform.localScale = startScale;
-
-        // Return camera to start position
-        elapsed = 0f;
-        duration = 1f / cameraReturnSpeed;
-
-        while (elapsed < duration)
-        {
-            elapsed += Time.deltaTime;
-            float t = EaseInOutCubic(elapsed / duration);
-
-            mainCamera.transform.position = Vector3.Lerp(mainCamera.transform.position, startCameraPos, t);
-            mainCamera.transform.rotation = Quaternion.Lerp(mainCamera.transform.rotation, startCameraRot, t);
-
-            yield return null;
-        }
-
-        mainCamera.transform.position = startCameraPos;
-        mainCamera.transform.rotation = startCameraRot;
 
         Debug.Log("Exited inspection mode");
     }

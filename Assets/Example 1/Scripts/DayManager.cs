@@ -87,6 +87,14 @@ public class DayManager : MonoBehaviour
             yield return new WaitForSeconds(dayDuration);
 
             currentDay++;
+            if(currentDay >= totalDays)
+{
+    weatherManager.ForceSunnyFinalDay();
+
+    StopAllCoroutines();
+
+    //StartCoroutine(FinalInspection());
+}
 
             // Update day display
             if (dayText != null)

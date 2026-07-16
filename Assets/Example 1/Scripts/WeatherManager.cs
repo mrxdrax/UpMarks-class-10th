@@ -21,6 +21,15 @@ public class WeatherManager : MonoBehaviour
     public float sunRotationSpeed = 8f;
 
     private bool dayNightRunning = false;
+    [Header("Final Day")]
+
+[SerializeField] private Vector3 finalSunnyRotation;
+
+[SerializeField] private float finalSunnyIntensity = 1.2f;
+
+[SerializeField] private Color finalAmbientColor;
+
+[SerializeField] private Material finalSkybox;
 
     // ============ WEATHER ============
 
@@ -95,4 +104,18 @@ public class WeatherManager : MonoBehaviour
 
         directionalLight.transform.rotation = endRotation;
     }
+    public void ForceSunnyFinalDay()
+{
+    directionalLight.transform.rotation =
+        Quaternion.Euler(finalSunnyRotation);
+
+    directionalLight.intensity = finalSunnyIntensity;
+
+    RenderSettings.ambientLight = finalAmbientColor;
+
+    if(finalSkybox != null)
+        RenderSettings.skybox = finalSkybox;
+
+    DynamicGI.UpdateEnvironment();
+}
 }

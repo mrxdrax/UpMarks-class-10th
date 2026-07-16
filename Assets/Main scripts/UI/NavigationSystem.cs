@@ -18,11 +18,11 @@ private void Awake()
     //DontDestroyOnLoad(gameObject);
 }
 
-    public void GoNext()
-    {
-        Debug.Log("NavigationSystem: GoNext called.");
-        OnNavigateNext?.Invoke();
-    }
+   public void GoNext()
+{
+    Debug.Log("NEXT BUTTON PRESSED");
+    OnNavigateNext?.Invoke();
+}
 
     public void GoBack()
     {
