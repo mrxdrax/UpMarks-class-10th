@@ -3,89 +3,123 @@ using System.Collections;
 
 public class Ex2MeatFlip : MonoBehaviour
 {
-    [Header("Cooking Manager")]
-    public Ex2CookingManager cookingManager;
+    [Header("============ COOKING MANAGER ============")]
+    [SerializeField] private Ex2CookingManager cookingManager;
 
-    [Header("Flip Settings")]  // used to flip the meat when the player clicks on it
-    public float flipTime = 0.6f;
+    [Header("============ FLIP SETTINGS ============")]
+    [SerializeField] private float flipTime = 0.6f;
+    [SerializeField] private float flipTossHeight = 0.08f;
 
-    bool canFlip = false;
-    bool flipped = false;
-    bool flipping = false;
+    [Header("============ ANIMATION CURVE ============")]
+    [SerializeField] private AnimationCurve flipCurve = AnimationCurve.EaseInOut(0, 0, 1, 1);
 
+    [Header("============ EFFECTS ============")]
+    [SerializeField] private AudioClip flipSound;
+
+    // State
+    private bool canFlip = false;
+    private bool flipped = false;
+    private bool flipping = false;
+    private AudioSource audioSource;
+    private Vector3 startPosition;
+    private Quaternion startRotation;
+
+    private void Start()
+    {
+        audioSource = GetComponent<AudioSource>();
+        if (audioSource == null)
+        {
+            audioSource = gameObject.AddComponent<AudioSource>();
+        }
+
+        startPosition = transform.position;
+        startRotation = transform.rotation;
+    }
+
+    /// <summary>
+    /// Called by CookingManager when first side is cooked
+    /// Allows player to manually click to flip, or auto-flip after delay
+    /// </summary>
     public void EnableFlip()
     {
         canFlip = true;
-
-        Debug.Log("Flip Available");
+        Debug.Log("Meat can be flipped");
     }
-void OnMouseDown()
-{
-    Debug.Log("Mouse Clicked");
 
-    Debug.Log("canFlip = " + canFlip);
-
-    Debug.Log("flipped = " + flipped);
-
-    Debug.Log("flipping = " + flipping);
-
-    if (!canFlip)
-        return;
-
-    if (flipped)
-        return;
-
-    if (flipping)
-        return;
-
-    Debug.Log("Starting Flip");
-
-    StartCoroutine(FlipRoutine());
-}
-
-    IEnumerator FlipRoutine()
-{
-    flipping = true;
-
-    Vector3 startPos = transform.position;
-
-    Quaternion startRot = transform.rotation;
-
-    Quaternion endRot =
-        startRot * Quaternion.Euler(180f, 0f, 0f);
-
-    float timer = 0;
-
-    while (timer < flipTime)
+    private void OnMouseDown()
     {
-        timer += Time.deltaTime;
+        if (!canFlip || flipped || flipping)
+            return;
 
-        float t = timer / flipTime;
-
-        // Rotation
-        transform.rotation =
-            Quaternion.Slerp(startRot, endRot, t);
-
-        // Toss
-        Vector3 pos = startPos;
-
-        pos.y += Mathf.Sin(t * Mathf.PI) * 0.08f;
-
-        transform.position = pos;
-
-        yield return null;
+        Debug.Log("Player clicked meat - starting flip");
+        StartCoroutine(FlipRoutine());
     }
 
-    transform.position = startPos;
+    /// <summary>
+    /// Flip animation: rotate 180°, toss upward, smooth landing
+    /// </summary>
+    private IEnumerator FlipRoutine()
+    {
+        flipping = true;
 
-    transform.rotation = endRot;
+        // Play flip sound
+        if (flipSound != null && audioSource != null)
+        {
+            audioSource.PlayOneShot(flipSound);
+        }
 
-    flipped = true;
+        Vector3 midPos = startPosition;
+        Quaternion startRot = transform.rotation;
+        Quaternion endRot = startRot * Quaternion.Euler(180f, 0f, 0f);
 
-    flipping = false;
+        float elapsed = 0f;
 
-    canFlip = false;
+        while (elapsed < flipTime)
+        {
+            elapsed += Time.deltaTime;
+            float t = elapsed / flipTime;
 
-    cookingManager.StartSecondCooking();
-}
+            // Apply easing curve
+            float easeT = flipCurve.Evaluate(t);
+
+            // Rotation: smoothly rotate 180°
+            transform.rotation = Quaternion.Slerp(startRot, endRot, easeT);
+
+            // Toss: arc motion up and back down
+            Vector3 tossPos = midPos;
+            tossPos.y += Mathf.Sin(t * Mathf.PI) * flipTossHeight;
+            transform.position = tossPos;
+
+            yield return null;
+        }
+
+        // Ensure final state
+        transform.position = startPosition;
+        transform.rotation = endRot;
+
+        flipped = true;
+        flipping = false;
+        canFlip = false;
+
+        Debug.Log("Flip complete - continuing second side");
+
+        // Continue cooking second side
+        if (cookingManager != null)
+        {
+            cookingManager.StartSecondCooking();
+        }
+    }
+
+    /// <summary>
+    /// Get flip state
+    /// </summary>
+    public bool IsFlipped()
+    {
+        return flipped;
+    }
+
+    public bool CanFlip()
+    {
+        return canFlip;
+    }
 }
