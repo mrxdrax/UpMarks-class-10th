@@ -116,14 +116,15 @@ public class RustInspection : MonoBehaviour
         }
     }
 
-    private void OnMouseDown()
-    {
-        // Only start inspection if unlocked and not already inspecting
-        if (!canInspect || inspecting)
-            return;
+private void OnMouseDown()
+{
+    Debug.Log("Rust Nail Clicked");
 
-        StartCoroutine(StartInspection());
-    }
+    if (!canInspect || inspecting)
+        return;
+
+    StartCoroutine(StartInspection());
+}
 
     private void Update()
     {

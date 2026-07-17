@@ -8,6 +8,7 @@ public class ScreenController : MonoBehaviour
 
     [Header("Special Panels")]
     [SerializeField] private GameObject examplePanel;
+    public int currentScreenIndex = 0;
     
     [Header("Transition")]
     [SerializeField] private GameObject transitionPanel;
@@ -16,8 +17,7 @@ public class ScreenController : MonoBehaviour
     [SerializeField] private string gameplaySceneName = "Gameplay";
 
     [SerializeField] private UIManager uiManager;
-
-    private int currentScreenIndex = 0;
+    
     
     private bool isTransitioning = false;
 
@@ -113,25 +113,15 @@ public class ScreenController : MonoBehaviour
 
 
 
-
-
-
-
-        //uiManager.ShowPanel(screenPanels[currentScreenIndex], screenPanels);
-
-
-
-
-
-
-
-
-
-
-
-
+        uiManager.ShowPanel(screenPanels[currentScreenIndex]);
         
-        // HOLD (1.2 seconds - new panel visible behind closed transition)
+        
+        
+        
+        
+        
+        
+        
         if (transitionPanel != null)
         {
             yield return new WaitForSeconds(1.2f);
@@ -160,14 +150,27 @@ public class ScreenController : MonoBehaviour
 
 
 
-        //uiManager.ShowPanel(screenPanels[index], screenPanels);
+
+
+        uiManager.ShowPanel(screenPanels[index]);
         
-
-
-
-
-
-
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
         Debug.Log($"ScreenController: Showing screen at index {index}");
     }
 
