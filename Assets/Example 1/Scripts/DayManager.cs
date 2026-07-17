@@ -19,6 +19,7 @@ public class DayManager : MonoBehaviour
 
     [Header("============ REFERENCES ============")]
     [SerializeField] private WeatherManager weatherManager;
+    [SerializeField] private ExampleManager exampleManager;
     [SerializeField] private GameObject normalNail;
     [SerializeField] private GameObject rustNail;
     [SerializeField] private NailMove nailMove;
@@ -171,6 +172,7 @@ public class DayManager : MonoBehaviour
     /// </summary>
     private void CycleComplete()
     {
+        exampleManager.DayCompleted();
         cycleRunning = false;
 
         // Ensure final state

@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 [System.Serializable]
 public class ExampleData
@@ -9,9 +10,14 @@ public class ExampleData
     public GameObject exampleObject;
     public Camera exampleCamera;
 }
-
 public class ExampleManager : MonoBehaviour
 {
+    [Header("UI")]
+[SerializeField] private GameObject backButton;
+[SerializeField] private Button nextButton;
+
+private bool dayCompleted = false;
+private bool inspectionCompleted = false;
     public List<ExampleData> examples = new List<ExampleData>();
 
     [Header("Scene")]
@@ -45,26 +51,57 @@ public class ExampleManager : MonoBehaviour
         currentExample = index;
 
         Debug.Log("Current Example : " + examples[index].exampleName);
-    }
+        dayCompleted = false;
+inspectionCompleted = false;
 
-   public void NextExample()
+if(nextButton != null)
+    nextButton.interactable = false;
+    }
+public void NextExample()
 {
-    if (currentExample == 0)
+    if(!dayCompleted || !inspectionCompleted)
+        return;
+
+    if(currentExample < examples.Count - 1)
     {
-        ShowExample(1);
+        ShowExample(currentExample + 1);
     }
     else
     {
-        PlayerPrefs.SetInt("ReturnFromExperiment", 1);
-        SceneManager.LoadScene("MainMenu");
+        PlayerPrefs.SetInt("ReturnFromExperiment",1);
+        SceneManager.LoadScene(mainMenuSceneName);
     }
 }
 public void PreviousExample()
 {
-    if (currentExample > 0)
+    if(currentExample>0)
     {
-        ShowExample(currentExample - 1);
+        ShowExample(currentExample-1);
     }
+    else
+    {
+        PlayerPrefs.SetInt("ReturnFromExperiment",1);
+        SceneManager.LoadScene(mainMenuSceneName);
+    }
+}
+
+public void InspectionCompleted()
+{
+    inspectionCompleted = true;
+    CheckNextButton();
+
+    Debug.Log("Inspection Complete");
+}
+
+private void CheckNextButton()
+{
+    if(nextButton != null)
+        nextButton.interactable = dayCompleted && inspectionCompleted;
+}
+public void DayCompleted()
+{
+    dayCompleted = true;
+    CheckNextButton();
 }
 
 }

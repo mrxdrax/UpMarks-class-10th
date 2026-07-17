@@ -7,6 +7,7 @@ public class RustInspection : MonoBehaviour
     [SerializeField] private Transform inspectionPoint;
     [SerializeField] private GameObject environment;
     [SerializeField] private Camera mainCamera;
+    [SerializeField] private ExampleManager exampleManager;
 
     [Header("============ CAMERA SETTINGS ============")]
     [SerializeField] private Vector3 cameraInspectionOffset = new Vector3(0, 0.5f, -0.8f);
@@ -111,6 +112,7 @@ public class RustInspection : MonoBehaviour
         if (inspecting)
         {
             StartCoroutine(EndInspection());
+            exampleManager.InspectionCompleted();
         }
     }
 
@@ -142,6 +144,9 @@ public class RustInspection : MonoBehaviour
     /// </summary>
     private IEnumerator StartInspection()
     {
+        exampleManager.InspectionCompleted();
+
+Debug.Log("Example Completed");
         inspecting = true;
         mouseControlActive = true;
         currentVerticalRotation = 0f;
