@@ -181,27 +181,30 @@ public class Ex2CookingManager : MonoBehaviour
         }
 
         // Swap meshes: hide raw, show cooked
-        if (rawMeat != null)
-        {
-            rawMeat.SetActive(false);
-        }
+        // Swap meshes: hide raw, show cooked
+if (rawMeat != null)
+{
+    rawMeat.SetActive(false);
+}
 
-        if (cookedMeat != null)
-        {
-            cookedMeat.SetActive(true);
-        }
+if (cookedMeat != null)
+{
+    cookedMeat.SetActive(true);
 
-        cookingFinished = true;
+    // Unlock Inspection
+    Ex2Inspection inspection = cookedMeat.GetComponent<Ex2Inspection>();
 
-        // Notify ExampleManager that cooking is complete
-        if (exampleManager != null)
-        {
-            exampleManager.DayCompleted();
-            Debug.Log("Notified ExampleManager: DayCompleted");
-        }
-
-        Debug.Log("Cooking finished - inspection available");
+    if (inspection != null)
+    {
+        inspection.UnlockInspection();
+        Debug.Log("Inspection Unlocked");
     }
+    else
+    {
+        Debug.LogError("Ex2Inspection script not found on CookedMeat");
+    }
+}
+    }    
 
     /// <summary>
     /// Called when meat is ready for flip (7 sec after landing)

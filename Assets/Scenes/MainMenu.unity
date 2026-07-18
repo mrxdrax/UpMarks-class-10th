@@ -9344,6 +9344,7 @@ MonoBehaviour:
   - {fileID: 1739159484}
   - {fileID: 1601360171}
   examplePanel: {fileID: 1739159484}
+  currentScreenIndex: 0
   transitionPanel: {fileID: 3970871518485554283}
   gameplaySceneName: ChemicalExampleScene
   uiManager: {fileID: 188578993}

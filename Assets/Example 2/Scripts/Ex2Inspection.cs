@@ -3,7 +3,7 @@ using System.Collections;
 
 public class Ex2Inspection : MonoBehaviour
 {
-    [Header("============ INSPECTION SETUP ============")]
+     [Header("============ INSPECTION SETUP ============")]
     [SerializeField] private Transform inspectionPoint;
     [SerializeField] private GameObject environment;
 
@@ -15,194 +15,157 @@ public class Ex2Inspection : MonoBehaviour
     [Header("============ SCALING ============")]
     [SerializeField] private float scaleMultiplier = 3f;
 
+    [Header("============ INSPECTION ROTATION ============")]
+    [SerializeField] private Vector3 inspectionRotation = new Vector3(-180f,0f,0f);
+
     [Header("============ MANAGER REFERENCES ============")]
     [SerializeField] private ExampleManager exampleManager;
 
-    // State
-    private bool canInspect = false;
-    private bool inspecting = false;
-    private Vector3 startPos;
-    private Vector3 startScale;
+    bool canInspect, inspecting;
+    Vector3 startPos,startScale;
+    Quaternion startRotation;
 
-    private void Start()
-    {
-        startPos = transform.position;
-        startScale = transform.localScale;
+    void Start(){
+        startPos=transform.position;
+        startScale=transform.localScale;
+        startRotation=transform.rotation;
     }
 
-    /// <summary>
-    /// Called by CookingManager when cooking is complete
-    /// </summary>
-    public void UnlockInspection()
+    public void UnlockInspection(){ canInspect=true; }
+
+    void OnMouseDown()
+{
+    Debug.Log("Mouse Down");
+
+    Debug.Log("canInspect = " + canInspect);
+    Debug.Log("inspecting = " + inspecting);
+
+    if (!canInspect)
     {
-        canInspect = true;
-        Debug.Log("Meat inspection unlocked");
+        Debug.Log("Inspection Locked");
+        return;
     }
 
-    private void OnMouseDown()
+    if (inspecting)
     {
-        if (!canInspect || inspecting)
-            return;
-
-        Debug.Log("Starting meat inspection");
-        StartCoroutine(StartInspection());
+        Debug.Log("Already Inspecting");
+        return;
     }
 
-    /// <summary>
-    /// Enter inspection mode
-    /// </summary>
-    private IEnumerator StartInspection()
-    {
-        inspecting = true;
+    Debug.Log("Starting Coroutine");
 
-        // Hide environment
-        if (environment != null)
-        {
-            environment.SetActive(false);
+    startPos = transform.position;
+    startScale = transform.localScale;
+    startRotation = transform.rotation;
+
+    StartCoroutine(StartInspection());
+
+    Debug.Log("Coroutine Started");
+}
+
+    IEnumerator StartInspection()
+{
+    Debug.Log("1. Coroutine Started");
+
+    inspecting = true;
+
+    Debug.Log("2. Hiding Environment");
+
+    if (environment != null)
+        environment.SetActive(false);
+
+    Debug.Log("3. Environment Hidden");
+
+    if (inspectionPoint == null)
+    {
+        Debug.LogError("Inspection Point is NULL");
+        yield break;
+    }
+
+    Debug.Log("4. Inspection Point OK");
+
+    Vector3 targetScale = startScale * scaleMultiplier;
+    Quaternion targetRot = Quaternion.Euler(inspectionRotation);
+
+    float e = 0f;
+    float d = 1f / moveSpeed;
+
+    while (e < d)
+    {
+        e += Time.deltaTime;
+
+        float t = Mathf.Clamp01(e / d);
+        t = t < 0.5f
+            ? 4f * t * t * t
+            : 1f - Mathf.Pow(-2f * t + 2f, 3f) / 2f;
+
+        transform.position = Vector3.Lerp(startPos, inspectionPoint.position, t);
+        transform.localScale = Vector3.Lerp(startScale, targetScale, t);
+        transform.rotation = Quaternion.Slerp(startRotation, targetRot, t);
+
+        yield return null;
+    }
+
+    Debug.Log("5. Animation Finished");
+
+    transform.SetPositionAndRotation(inspectionPoint.position, targetRot);
+    transform.localScale = targetScale;
+
+    Debug.Log("6. Final Position Set");
+
+    if (exampleManager != null)
+    {
+        exampleManager.InspectionCompleted();
+        Debug.Log("7. Example Manager Called");
+    }
+    else
+    {
+        Debug.LogWarning("ExampleManager NULL");
+    }
+
+    Debug.Log("8. Inspection Complete");
+}
+
+    void Update(){
+        if(!inspecting) return;
+
+        transform.Rotate(Vector3.up,autoRotateSpeed*Time.deltaTime,Space.World);
+
+        if(Input.GetMouseButton(0)){
+            float mx=Input.GetAxis("Mouse X");
+            float my=Input.GetAxis("Mouse Y");
+            transform.Rotate(Vector3.up,-mx*dragRotateSpeed*100f,Space.World);
+            transform.Rotate(Vector3.right,my*dragRotateSpeed*100f,Space.Self);
         }
 
-        // Move to inspection point and scale up
-        Vector3 targetScale = startScale * scaleMultiplier;
-        float elapsed = 0f;
-        float duration = 1f / moveSpeed;
+        if(Input.GetKeyDown(KeyCode.Escape))
+            StartCoroutine(EndInspection());
+    }
 
-        while (elapsed < duration)
-        {
-            elapsed += Time.deltaTime;
-            float t = elapsed / duration;
-            float easeT = EaseInOutCubic(t);
+    IEnumerator EndInspection(){
+        inspecting=false;
+        Vector3 currentScale=transform.localScale;
+        Quaternion currentRot=transform.rotation;
 
-            transform.position = Vector3.Lerp(startPos, inspectionPoint.position, easeT);
-            transform.localScale = Vector3.Lerp(startScale, targetScale, easeT);
+        float e=0,d=1f/moveSpeed;
+        while(e<d){
+            e+=Time.deltaTime;
+            float t=Mathf.Clamp01(e/d);
+            t=t<0.5f?4f*t*t*t:1f-Mathf.Pow(-2f*t+2f,3f)/2f;
 
+            transform.position=Vector3.Lerp(inspectionPoint.position,startPos,t);
+            transform.localScale=Vector3.Lerp(currentScale,startScale,t);
+            transform.rotation=Quaternion.Slerp(currentRot,startRotation,t);
             yield return null;
         }
 
-        transform.position = inspectionPoint.position;
-        transform.localScale = targetScale;
+        transform.position=startPos;
+        transform.localScale=startScale;
+        transform.rotation=startRotation;
 
-        // Notify ExampleManager immediately (don't wait for exit)
-        if (exampleManager != null)
-        {
-            exampleManager.InspectionCompleted();
-            Debug.Log("Notified ExampleManager: InspectionCompleted");
-        }
-
-        Debug.Log("Inspection mode active");
+        if(environment) environment.SetActive(true);
     }
 
-    private void Update()
-    {
-        if (!inspecting)
-            return;
-
-        HandleRotation();
-
-        // ESC to exit
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            ExitInspection();
-        }
-    }
-
-    /// <summary>
-    /// Handle auto-rotation and mouse drag rotation
-    /// </summary>
-    private void HandleRotation()
-    {
-        // Auto rotation around Y axis
-        transform.Rotate(
-            Vector3.up,
-            autoRotateSpeed * Time.deltaTime,
-            Space.World
-        );
-
-        // Mouse drag rotation
-        if (Input.GetMouseButton(0))
-        {
-            float mouseX = Input.GetAxis("Mouse X");
-            float mouseY = Input.GetAxis("Mouse Y");
-
-            // Horizontal drag
-            transform.Rotate(
-                Vector3.up,
-                -mouseX * dragRotateSpeed * 100f,
-                Space.World
-            );
-
-            // Vertical drag
-            transform.Rotate(
-                Vector3.right,
-                mouseY * dragRotateSpeed * 100f,
-                Space.World
-            );
-        }
-    }
-
-    /// <summary>
-    /// Exit inspection mode
-    /// </summary>
-    public void ExitInspection()
-    {
-        if (!inspecting)
-            return;
-
-        StartCoroutine(EndInspection());
-    }
-
-    /// <summary>
-    /// Return to normal view
-    /// </summary>
-    private IEnumerator EndInspection()
-    {
-        inspecting = false;
-
-        // Return to original position and scale
-        float elapsed = 0f;
-        float duration = 1f / moveSpeed;
-
-        while (elapsed < duration)
-        {
-            elapsed += Time.deltaTime;
-            float t = elapsed / duration;
-            float easeT = EaseInOutCubic(t);
-
-            transform.position = Vector3.Lerp(inspectionPoint.position, startPos, easeT);
-            transform.localScale = Vector3.Lerp(transform.localScale, startScale, easeT);
-
-            yield return null;
-        }
-
-        transform.position = startPos;
-        transform.localScale = startScale;
-
-        // Show environment
-        if (environment != null)
-        {
-            environment.SetActive(true);
-        }
-
-        Debug.Log("Exited inspection mode");
-    }
-
-    /// <summary>
-    /// Cubic easing for premium feel
-    /// </summary>
-    private float EaseInOutCubic(float t)
-    {
-        return t < 0.5f ? 4f * t * t * t : 1f - Mathf.Pow(-2f * t + 2f, 3f) / 2f;
-    }
-
-    /// <summary>
-    /// Get inspection state
-    /// </summary>
-    public bool IsInspecting()
-    {
-        return inspecting;
-    }
-
-    public bool CanInspect()
-    {
-        return canInspect;
-    }
+    public bool IsInspecting()=>inspecting;
+    public bool CanInspect()=>canInspect;
 }

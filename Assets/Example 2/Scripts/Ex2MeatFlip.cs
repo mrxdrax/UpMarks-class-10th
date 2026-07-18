@@ -9,6 +9,7 @@ public class Ex2MeatFlip : MonoBehaviour
     [Header("============ FLIP SETTINGS ============")]
     [SerializeField] private float flipTime = 0.6f;
     [SerializeField] private float flipTossHeight = 0.08f;
+    [SerializeField] private float panHeightOffset = 0.025f;
 
     [Header("============ ANIMATION CURVE ============")]
     [SerializeField] private AnimationCurve flipCurve = AnimationCurve.EaseInOut(0, 0, 1, 1);
@@ -41,10 +42,15 @@ public class Ex2MeatFlip : MonoBehaviour
     /// Allows player to manually click to flip, or auto-flip after delay
     /// </summary>
     public void EnableFlip()
-    {
-        canFlip = true;
-        Debug.Log("Meat can be flipped");
-    }
+{
+    canFlip = true;
+
+    // Save CURRENT pan position
+    startPosition = transform.position;
+    startRotation = transform.rotation;
+
+    Debug.Log("Meat can be flipped");
+}
 
     private void OnMouseDown()
     {
@@ -68,7 +74,7 @@ public class Ex2MeatFlip : MonoBehaviour
             audioSource.PlayOneShot(flipSound);
         }
 
-        Vector3 midPos = startPosition;
+       Vector3 midPos = transform.position;
         Quaternion startRot = transform.rotation;
         Quaternion endRot = startRot * Quaternion.Euler(180f, 0f, 0f);
 
@@ -94,7 +100,9 @@ public class Ex2MeatFlip : MonoBehaviour
         }
 
         // Ensure final state
-        transform.position = startPosition;
+        Vector3 finalPos = midPos;
+finalPos.y += panHeightOffset;
+transform.position = finalPos;
         transform.rotation = endRot;
 
         flipped = true;
