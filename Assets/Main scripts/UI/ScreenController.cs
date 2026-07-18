@@ -41,18 +41,32 @@ public class ScreenController : MonoBehaviour
         }
     }
 
-    private void Start()
+private void Start()
+{
+    if (screenPanels.Length == 0)
     {
-        if (screenPanels.Length == 0)
-        {
-            Debug.LogError("ScreenController: No panels assigned in screenPanels array!");
-            return;
-        }
-
-        currentScreenIndex = 0;
-        ShowScreen(currentScreenIndex);
+        Debug.LogError("No Panels Assigned");
+        return;
     }
 
+    // Return to Reaction Panel
+if (ExampleManager.OpenReactionPanel)
+{
+    ExampleManager.OpenReactionPanel = false;
+    ShowScreen(3);   // ReactionSummaryPanel
+    return;
+}
+
+if (ExampleManager.OpenExamplePanel)
+{
+    ExampleManager.OpenExamplePanel = false;
+    ShowScreen(2);   // ExamplePanel
+    return;
+}
+
+    currentScreenIndex = 0;
+    ShowScreen(0);
+}
     private void HandleNext()
     {
         Debug.Log("ScreenController HandleNext");
@@ -143,33 +157,7 @@ public class ScreenController : MonoBehaviour
             return;
 
         currentScreenIndex = index;
-
-
-
-
-
-
-
-
-
         uiManager.ShowPanel(screenPanels[index]);
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
         
         Debug.Log($"ScreenController: Showing screen at index {index}");
     }

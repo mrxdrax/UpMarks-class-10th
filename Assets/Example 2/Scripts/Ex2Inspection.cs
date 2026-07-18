@@ -118,6 +118,10 @@ public class Ex2Inspection : MonoBehaviour
         exampleManager.InspectionCompleted();
         Debug.Log("7. Example Manager Called");
     }
+    if (exampleManager != null)
+{
+    exampleManager.DayCompleted();
+}
     else
     {
         Debug.LogWarning("ExampleManager NULL");

@@ -24,6 +24,8 @@ private bool inspectionCompleted = false;
     public string mainMenuSceneName = "MainMenu";
 
     private int currentExample = 0;
+    public static bool OpenReactionPanel = false;
+public static bool OpenExamplePanel = false;
 
     void Start()
     {
@@ -59,17 +61,23 @@ if(nextButton != null)
     }
 public void NextExample()
 {
-    if(!dayCompleted || !inspectionCompleted)
+    Debug.Log("Current Example = " + currentExample);
+    Debug.Log("Total Examples = " + examples.Count);
+
+    if (!dayCompleted || !inspectionCompleted)
         return;
 
-    if(currentExample < examples.Count - 1)
+    if (currentExample < examples.Count - 1)
     {
+        Debug.Log("Opening Next Example");
         ShowExample(currentExample + 1);
     }
     else
     {
-        PlayerPrefs.SetInt("ReturnFromExperiment",1);
-        SceneManager.LoadScene(mainMenuSceneName);
+        Debug.Log("Opening Reaction Panel");
+
+        OpenReactionPanel = true;
+        SceneManager.LoadScene("MainMenu");
     }
 }
 public void PreviousExample()
@@ -79,29 +87,57 @@ public void PreviousExample()
         ShowExample(currentExample-1);
     }
     else
-    {
-        PlayerPrefs.SetInt("ReturnFromExperiment",1);
-        SceneManager.LoadScene(mainMenuSceneName);
-    }
+{
+    OpenExamplePanel = true;
+    SceneManager.LoadScene("MainMenu");
+}
 }
 
 public void InspectionCompleted()
 {
     inspectionCompleted = true;
-    CheckNextButton();
 
     Debug.Log("Inspection Complete");
+    Debug.Log("Day = " + dayCompleted);
+    Debug.Log("Inspection = " + inspectionCompleted);
+
+    CheckNextButton();
+
+    Debug.Log("Next Button = " + nextButton.interactable);
 }
 
 private void CheckNextButton()
 {
+    Debug.Log("CheckNextButton Called");
+
     if(nextButton != null)
+    {
         nextButton.interactable = dayCompleted && inspectionCompleted;
+
+        Debug.Log("Button State = " + nextButton.interactable);
+    }
 }
 public void DayCompleted()
 {
     dayCompleted = true;
+
+    Debug.Log("Day Completed");
+    Debug.Log("Day = " + dayCompleted);
+    Debug.Log("Inspection = " + inspectionCompleted);
+
     CheckNextButton();
+
+    Debug.Log("Next Button = " + nextButton.interactable);
+}
+public void BackToReactionPanel()
+{
+    PlayerPrefs.SetString("OpenPanel", "ReactionPanel");
+    SceneManager.LoadScene("Scene1");   // Apni Scene1 ka exact naam likh
+}
+public void BackToExamplePanel()
+{
+    PlayerPrefs.SetString("OpenPanel", "ExamplePanel");
+    SceneManager.LoadScene("Scene1");   // Apni Scene1 ka exact naam likh
 }
 
 }
