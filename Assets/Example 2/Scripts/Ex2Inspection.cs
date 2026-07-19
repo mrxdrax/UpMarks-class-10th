@@ -48,11 +48,10 @@ public class Ex2Inspection : MonoBehaviour
 
     if (inspecting)
     {
-        Debug.Log("Already Inspecting");
         return;
     }
 
-    Debug.Log("Starting Coroutine");
+    
 
     startPos = transform.position;
     startScale = transform.localScale;
@@ -60,29 +59,25 @@ public class Ex2Inspection : MonoBehaviour
 
     StartCoroutine(StartInspection());
 
-    Debug.Log("Coroutine Started");
+    
 }
 
     IEnumerator StartInspection()
 {
-    Debug.Log("1. Coroutine Started");
 
     inspecting = true;
 
-    Debug.Log("2. Hiding Environment");
 
     if (environment != null)
         environment.SetActive(false);
 
-    Debug.Log("3. Environment Hidden");
-
     if (inspectionPoint == null)
     {
-        Debug.LogError("Inspection Point is NULL");
+    
         yield break;
     }
 
-    Debug.Log("4. Inspection Point OK");
+    
 
     Vector3 targetScale = startScale * scaleMultiplier;
     Quaternion targetRot = Quaternion.Euler(inspectionRotation);
@@ -172,4 +167,5 @@ public class Ex2Inspection : MonoBehaviour
 
     public bool IsInspecting()=>inspecting;
     public bool CanInspect()=>canInspect;
+    
 }

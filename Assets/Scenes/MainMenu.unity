@@ -580,6 +580,7 @@ GameObject:
   m_Component:
   - component: {fileID: 112145059}
   - component: {fileID: 112145060}
+  - component: {fileID: 112145061}
   m_Layer: 5
   m_Name: ExampleGrid
   m_TagString: Untagged
@@ -634,6 +635,19 @@ MonoBehaviour:
   m_Spacing: {x: 282, y: 66.2}
   m_Constraint: 1
   m_ConstraintCount: 2
+--- !u!114 &112145061
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 112145058}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7c9006e1a2280494a8cee1ecff1a3e32, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  framesToWait: 2
 --- !u!1 &119993936
 GameObject:
   m_ObjectHideFlags: 0
@@ -840,7 +854,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
+  m_Sprite: {fileID: 0}
   m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -915,7 +929,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Texture: {fileID: 0}
+  m_Texture: {fileID: 2800000, guid: 1ab97b94a5e47064b8a3a9aeb6df0708, type: 3}
   m_UVRect:
     serializedVersion: 2
     x: 0
@@ -1674,6 +1688,7 @@ GameObject:
   m_Component:
   - component: {fileID: 255298628}
   - component: {fileID: 255298629}
+  - component: {fileID: 255298630}
   m_Layer: 5
   m_Name: ExampleGrid
   m_TagString: Untagged
@@ -1728,6 +1743,19 @@ MonoBehaviour:
   m_Spacing: {x: 282, y: 66.2}
   m_Constraint: 1
   m_ConstraintCount: 2
+--- !u!114 &255298630
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 255298627}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7c9006e1a2280494a8cee1ecff1a3e32, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  framesToWait: 2
 --- !u!1 &259159319
 GameObject:
   m_ObjectHideFlags: 0
@@ -4429,7 +4457,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Texture: {fileID: 0}
+  m_Texture: {fileID: 2800000, guid: d70472856d29ebb4caefa66d77061061, type: 3}
   m_UVRect:
     serializedVersion: 2
     x: 0
@@ -5623,7 +5651,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Texture: {fileID: 0}
+  m_Texture: {fileID: 2800000, guid: 1b7d161d6b92e7249a0e5de01e5e1ca0, type: 3}
   m_UVRect:
     serializedVersion: 2
     x: 0
@@ -7859,7 +7887,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Texture: {fileID: 0}
+  m_Texture: {fileID: 2800000, guid: 6c28c0cbc3078174f96cddac48c40fd6, type: 3}
   m_UVRect:
     serializedVersion: 2
     x: 0
@@ -11048,6 +11076,7 @@ GameObject:
   - component: {fileID: 1687537895}
   - component: {fileID: 1687537894}
   - component: {fileID: 1687537897}
+  - component: {fileID: 1687537898}
   m_Layer: 5
   m_Name: Start Button
   m_TagString: Untagged
@@ -11184,6 +11213,26 @@ MonoBehaviour:
   m_EffectColor: {r: 0, g: 0, b: 0, a: 0.3529412}
   m_EffectDistance: {x: 1, y: -8}
   m_UseGraphicAlpha: 1
+--- !u!114 &1687537898
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1687537892}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 61a69fffdda06064f84a39a61e110db3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  floatX: 0
+  floatY: 1
+  amplitudeX: 0.8
+  amplitudeY: 1.5
+  speed: 0.25
+  rotate: 0
+  rotationAmount: 2
+  randomOffset: 1
 --- !u!1 &1687544528
 GameObject:
   m_ObjectHideFlags: 0
